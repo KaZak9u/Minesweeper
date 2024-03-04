@@ -72,8 +72,9 @@ class Board(object):
     def check_if_won(self):
         for line in self.blocks_matrix:
             for block in line:
-                if not (block.bombed and block.marked):
-                    return False
+                if block.bombed:
+                    if not block.marked:
+                        return False
         return True
 
     def discover_fields(self, i, j):
@@ -102,3 +103,11 @@ class Board(object):
 
     def mark_field(self, i, j):
         self.blocks_matrix[i][j].mark()
+
+    def count_marked(self):
+        num = 0
+        for i in self.blocks_matrix:
+            for j in i:
+                if j.marked:
+                    num += 1
+        return num

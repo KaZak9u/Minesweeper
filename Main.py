@@ -9,10 +9,11 @@ BLOCK_LENGTH = 100
 DIMENSIONS = (600, 600)
 num_of_blocks_x = 6
 num_of_blocks_y = 6
+num_of_bombs = 4
 
 
 def main():
-    game = Game(BLOCK_LENGTH, DIMENSIONS, num_of_blocks_x, num_of_blocks_y)
+    game = Game(BLOCK_LENGTH, DIMENSIONS, num_of_blocks_x, num_of_blocks_y, num_of_bombs)
     game.run()
 
 

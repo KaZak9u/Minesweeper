@@ -22,6 +22,7 @@ class Block(object):
         self.size = size
         self.discovered = False
         self.marked = False
+        self.exploded = False
 
     def set_neighbouring_bombs_num(self, neighbouring_bombs_num):
         self.neighbouring_bombs_num = neighbouring_bombs_num
@@ -41,6 +42,7 @@ class Block(object):
             case 0:
                 if self.bombed:
                     self.image = BOMBED_BLOCK_IMAGE
+                    self.exploded = True
                 else:
                     self.image = EMPTY_BLOCK_IMAGE
             case 1:
