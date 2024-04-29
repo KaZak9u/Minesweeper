@@ -17,7 +17,7 @@ class Game:
         self.num_bombs = num_bombs
 
     def run(self):
-        pygame.display.set_caption("Bombs: " + str(0) + " / " + str(self.num_bombs))
+        pygame.display.set_caption(f'Bombs: {str(0)} / {str(self.num_bombs)}')
         board = Board(self.num_rows, self.num_cols, self.block_length)
         board.generate_board(self.num_bombs)
         running = True
@@ -34,7 +34,7 @@ class Game:
                     if event.button == 3:
                         x, y = pygame.mouse.get_pos()
                         board.mark_field(x // self.block_length, y // self.block_length)
-                        pygame.display.set_caption("Bombs: " + str(board.count_marked()) + " / " + str(self.num_bombs))
+                        pygame.display.set_caption(f'Bombs: {str(board.count_marked())} / {str(self.num_bombs)}')
             keys_pressed = pygame.key.get_pressed()
             if keys_pressed[pygame.K_SPACE]:
                 running = False
