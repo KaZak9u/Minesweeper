@@ -32,3 +32,17 @@ How to Run:
 Credits:
 Developed by [Kacper Zakrzewski]
 Enjoy the game and happy mine sweeping!
+
+Screenshots:
+
+![](doc/screenshots/start_board.png)  
+Starting board
+
+![](doc/screenshots/discovered_board.png)  
+Board with discovered fields
+
+![](doc/screenshots/flags.png)  
+Board with flags placed
+
+![](doc/screenshots/bomb.png)  
+Discovered bomb
