@@ -1,6 +1,6 @@
 import pygame
 import random
-from Block import Block
+from block import Block
 
 
 class Board(object):

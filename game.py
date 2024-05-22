@@ -1,5 +1,5 @@
 import pygame
-from Board import Board
+from board import Board
 
 
 class Game:
