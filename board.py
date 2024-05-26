@@ -72,9 +72,8 @@ class Board(object):
     def check_if_won(self):
         for line in self.blocks_matrix:
             for block in line:
-                if block.bombed:
-                    if not block.marked:
-                        return False
+                if block.bombed and not block.marked:
+                    return False
         return True
 
     def discover_fields(self, i, j):
@@ -98,7 +97,8 @@ class Board(object):
             for j in range(len(self.blocks_matrix[i])):
                 block_rect = pygame.Rect(i * self.block_length, j * self.block_length,
                                          self.block_length, self.block_length)
-                screen.blit(self.blocks_matrix[i][j].image, (block_rect.x, block_rect.y))
+                screen.blit(pygame.transform.scale(self.blocks_matrix[i][j].image, (self.block_length, self.block_length)),
+                            (block_rect.x, block_rect.y))
         pygame.display.update()
 
     def mark_field(self, i, j):
