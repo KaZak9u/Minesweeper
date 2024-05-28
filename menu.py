@@ -1,9 +1,18 @@
 from buttons import *
+from game import Game
 
 pygame.init()
 
 BACKGROUND_IMAGE = pygame.image.load("Assets/menu_background.png")
 BACKGROUND = pygame.transform.scale(BACKGROUND_IMAGE, (600, 600))
+
+GAME_SETTING = {
+    "block_length": [75, 50, 50],
+    "dimensions": [(750, 750), (700, 700), (1200, 800)],
+    "num_of_blocks_x": [10, 14, 24],
+    "num_of_blocks_y": [10, 14, 16],
+    "num_of_bombs": [(10, 20, 30), (15, 25, 35), (30, 45, 60)]
+}
 
 
 class Menu:
@@ -56,12 +65,39 @@ class Menu:
             self.clock.tick(60)
         return choice
 
+    def start_game(self, dimension_choice, difficulty):
+        block_length = GAME_SETTING["block_length"][dimension_choice]
+        dimensions = GAME_SETTING["dimensions"][dimension_choice]
+        num_of_blocks_x = GAME_SETTING["num_of_blocks_x"][dimension_choice]
+        num_of_blocks_y = GAME_SETTING["num_of_blocks_y"][dimension_choice]
+        num_of_bombs = GAME_SETTING["num_of_bombs"][dimension_choice][difficulty]
+        game = Game(block_length, dimensions, num_of_blocks_x, num_of_blocks_y, num_of_bombs)
+        game.run()
+
+    def run_difficulty_choice_menu(self, dimension_choice):
+        pygame.display.set_caption('Select difficulty')
+        choice = self.menu_loop(DIFFICULTY_CHOICE_BUTTONS)
+        pygame.quit()
+        if choice == 1:
+            self.start_game(dimension_choice, 0)
+        if choice == 2:
+            self.start_game(dimension_choice, 1)
+        if choice == 3:
+            self.start_game(dimension_choice, 2)
+        if choice == 4:
+            self.run_dimension_choice_menu()
+
     def run_dimension_choice_menu(self):
         pygame.display.set_caption('Select dimension')
         choice = self.menu_loop(DIMENSION_CHOICE_BUTTONS)
+        if choice == 1:
+            self.run_difficulty_choice_menu(0)
+        if choice == 2:
+            self.run_difficulty_choice_menu(1)
+        if choice == 3:
+            self.run_difficulty_choice_menu(2)
         if choice == 4:
             self.run_main_menu()
-        pygame.quit()
 
     def run_main_menu(self):
         pygame.display.set_caption('Minesweeper menu')

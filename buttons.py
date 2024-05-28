@@ -49,3 +49,18 @@ BUTTON_BACK_CHOSEN_IMAGE = pygame.image.load("Assets/button_back_chosen.png")
 
 DIMENSION_CHOICE_BUTTONS = [BUTTON_10x10_CHOSEN_IMAGE, BUTTON_10x10_IMAGE, BUTTON_14x14_CHOSEN_IMAGE, BUTTON_14x14_IMAGE,
                             BUTTON_24x16_CHOSEN_IMAGE, BUTTON_24x16_IMAGE, BUTTON_BACK_CHOSEN_IMAGE, BUTTON_BACK_IMAGE]
+
+""" DIFFICULTY CHOICE BUTTONS """
+
+BUTTON_EASY_IMAGE = pygame.image.load("Assets/button_easy.png")
+BUTTON_EASY_CHOSEN_IMAGE = pygame.image.load("Assets/button_easy_chosen.png")
+
+BUTTON_MEDIUM_IMAGE = pygame.image.load("Assets/button_medium.png")
+BUTTON_MEDIUM_CHOSEN_IMAGE = pygame.image.load("Assets/button_medium_chosen.png")
+
+BUTTON_HARD_IMAGE = pygame.image.load("Assets/button_hard.png")
+BUTTON_HARD_CHOSEN_IMAGE = pygame.image.load("Assets/button_hard_chosen.png")
+
+DIFFICULTY_CHOICE_BUTTONS = [BUTTON_EASY_CHOSEN_IMAGE, BUTTON_EASY_IMAGE, BUTTON_MEDIUM_CHOSEN_IMAGE,
+                             BUTTON_MEDIUM_IMAGE, BUTTON_HARD_CHOSEN_IMAGE, BUTTON_HARD_IMAGE, BUTTON_BACK_CHOSEN_IMAGE,
+                             BUTTON_BACK_IMAGE]
