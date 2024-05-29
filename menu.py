@@ -6,6 +6,9 @@ pygame.init()
 BACKGROUND_IMAGE = pygame.image.load("Assets/menu_background.png")
 BACKGROUND = pygame.transform.scale(BACKGROUND_IMAGE, (600, 600))
 
+RULES_IMAGE = pygame.image.load("Assets/rules.png")
+RULES = pygame.transform.scale(RULES_IMAGE, (600, 600))
+
 GAME_SETTING = {
     "block_length": [75, 50, 50],
     "dimensions": [(750, 750), (700, 700), (1200, 800)],
@@ -77,6 +80,8 @@ class Menu:
     def run_difficulty_choice_menu(self, dimension_choice):
         pygame.display.set_caption('Select difficulty')
         choice = self.menu_loop(DIFFICULTY_CHOICE_BUTTONS)
+        if choice == 4:
+            self.run_dimension_choice_menu()
         pygame.quit()
         if choice == 1:
             self.start_game(dimension_choice, 0)
@@ -84,8 +89,6 @@ class Menu:
             self.start_game(dimension_choice, 1)
         if choice == 3:
             self.start_game(dimension_choice, 2)
-        if choice == 4:
-            self.run_dimension_choice_menu()
 
     def run_dimension_choice_menu(self):
         pygame.display.set_caption('Select dimension')
@@ -99,11 +102,37 @@ class Menu:
         if choice == 4:
             self.run_main_menu()
 
+    def run_rules(self):
+        pygame.display.set_caption('Rules')
+        self.screen.fill((255, 255, 255))
+        self.screen.blit(BACKGROUND, (0, 0))
+        self.screen.blit(RULES, (0, 10))
+        pygame.display.update()
+        running = True
+        while running:
+            mouse_pos = pygame.mouse.get_pos()
+            for event in pygame.event.get():
+                if BUTTON_4_RECT.collidepoint(mouse_pos):
+                    self.screen.blit(BUTTON_BACK_CHOSEN_IMAGE, BUTTON_4_RECT)
+                else:
+                    self.screen.blit(BUTTON_BACK_IMAGE, BUTTON_4_RECT)
+                pygame.display.update()
+                if event.type == pygame.QUIT:
+                    running = False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        if BUTTON_4_RECT.collidepoint(mouse_pos):
+                            running = False
+            self.clock.tick(60)
+        self.run_main_menu()
+
     def run_main_menu(self):
         pygame.display.set_caption('Minesweeper menu')
         choice = self.menu_loop(MAIN_MENU_BUTTONS)
         if choice == 1:
             self.run_dimension_choice_menu()
+        if choice == 2:
+            self.run_rules()
         pygame.quit()
 
 
