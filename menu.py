@@ -1,5 +1,6 @@
 from buttons import *
 from game import Game
+from time_display import display_time
 
 pygame.init()
 
@@ -9,12 +10,19 @@ BACKGROUND = pygame.transform.scale(BACKGROUND_IMAGE, (600, 600))
 RULES_IMAGE = pygame.image.load("Assets/rules.png")
 RULES = pygame.transform.scale(RULES_IMAGE, (600, 600))
 
+ENDING_SCREEN_WON_IMAGE = pygame.image.load("Assets/ending_screen_won.png")
+ENDING_SCREEN_WON = pygame.transform.scale(ENDING_SCREEN_WON_IMAGE, (600, 600))
+
+ENDING_SCREEN_LOST_IMAGE = pygame.image.load("Assets/ending_screen_lost.png")
+ENDING_SCREEN_LOST = pygame.transform.scale(ENDING_SCREEN_LOST_IMAGE, (600, 600))
+
+
 GAME_SETTING = {
     "block_length": [75, 50, 50],
     "dimensions": [(750, 750), (700, 700), (1200, 800)],
     "num_of_blocks_x": [10, 14, 24],
     "num_of_blocks_y": [10, 14, 16],
-    "num_of_bombs": [(10, 20, 30), (15, 25, 35), (30, 45, 60)]
+    "num_of_bombs": [(1, 20, 30), (15, 25, 35), (30, 45, 60)]
 }
 
 
@@ -75,7 +83,8 @@ class Menu:
         num_of_blocks_y = GAME_SETTING["num_of_blocks_y"][dimension_choice]
         num_of_bombs = GAME_SETTING["num_of_bombs"][dimension_choice][difficulty]
         game = Game(block_length, dimensions, num_of_blocks_x, num_of_blocks_y, num_of_bombs)
-        game.run()
+        result, time = game.run()
+        self.run_ending_screen(result, time)
 
     def run_difficulty_choice_menu(self, dimension_choice):
         pygame.display.set_caption('Select difficulty')
@@ -133,6 +142,23 @@ class Menu:
             self.run_dimension_choice_menu()
         if choice == 2:
             self.run_rules()
+        pygame.quit()
+
+    def run_ending_screen(self, result, time):
+        pygame.init()
+        pygame.display.set_caption("Ending screen")
+        self.screen = pygame.display.set_mode((600, 600))
+        if result:
+            self.screen.blit(ENDING_SCREEN_WON, (0, 0))
+            display_time(self.screen, time, 140, 180)
+        else:
+            self.screen.blit(ENDING_SCREEN_LOST, (0, 0))
+        pygame.display.update()
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
         pygame.quit()
 
 
