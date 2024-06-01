@@ -64,3 +64,11 @@ BUTTON_HARD_CHOSEN_IMAGE = pygame.image.load("Assets/button_hard_chosen.png")
 DIFFICULTY_CHOICE_BUTTONS = [BUTTON_EASY_CHOSEN_IMAGE, BUTTON_EASY_IMAGE, BUTTON_MEDIUM_CHOSEN_IMAGE,
                              BUTTON_MEDIUM_IMAGE, BUTTON_HARD_CHOSEN_IMAGE, BUTTON_HARD_IMAGE, BUTTON_BACK_CHOSEN_IMAGE,
                              BUTTON_BACK_IMAGE]
+
+""" ENDING SCREEN BUTTONS """
+
+BUTTON_MAIN_MENU = pygame.image.load("Assets/button_main_menu.png")
+BUTTON_MAIN_MENU_CHOSEN = pygame.image.load("Assets/button_main_menu_chosen.png")
+
+BUTTON_TRY_AGAIN = pygame.image.load("Assets/button_try_again.png")
+BUTTON_TRY_AGAIN_CHOSEN = pygame.image.load("Assets/button_try_again_chosen.png")

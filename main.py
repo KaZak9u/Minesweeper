@@ -1,12 +1,12 @@
-import pygame
 from menu import Menu
-
-pygame.font.init()
 
 
 def main():
-    menu = Menu()
-    menu.run_main_menu()
+    flag = True
+    while flag:
+        menu = Menu(flag)
+        menu.run_main_menu()
+        flag = menu.flag
 
 
 if __name__ == "__main__":
