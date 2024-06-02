@@ -1,6 +1,7 @@
 from buttons import *
 from game import Game
 from time_display import display_time
+from records_saving import update_record
 
 BACKGROUND_IMAGE = pygame.image.load("Assets/menu_background.png")
 BACKGROUND = pygame.transform.scale(BACKGROUND_IMAGE, (600, 600))
@@ -161,7 +162,7 @@ class Menu:
     def check_ending_screen_buttons(self, mouse_pos, result, time):
         if result:
             self.screen.blit(ENDING_SCREEN_WON, (0, 0))
-            display_time(self.screen, time, 140, 180)
+            display_time(self.screen, time, 140, 180, (32, 40))
         else:
             self.screen.blit(ENDING_SCREEN_LOST, (0, 0))
         try_again_chosen = False
@@ -176,8 +177,13 @@ class Menu:
         pygame.init()
         pygame.display.set_caption("Ending screen")
         self.screen = pygame.display.set_mode((600, 600))
-        running = True
+
         choice = 0
+
+        if result:
+            update_record(dimension_choice, difficulty, time)
+
+        running = True
         while running:
             mouse_pos = pygame.mouse.get_pos()
             self.check_ending_screen_buttons(mouse_pos, result, time)

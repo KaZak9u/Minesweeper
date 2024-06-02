@@ -1,5 +1,6 @@
 import pygame
 from board import Board
+from records_saving import calculate_time
 
 
 class Game:
@@ -37,7 +38,8 @@ class Game:
                             running = False
                     if event.button == 3:
                         board.mark_field(x // self.block_length, y // self.block_length)
-            time = self.calculate_time(start_ticks)
+            seconds = (pygame.time.get_ticks() - start_ticks) / 1000
+            time = calculate_time(seconds)
             pygame.display.set_caption(f'Bombs: {str(board.count_marked())} / {str(self.num_bombs)}'
                                        f'{" " * self.num_of_spaces}{time}')
             keys_pressed = pygame.key.get_pressed()
@@ -48,10 +50,3 @@ class Game:
             self.clock.tick(60)
         pygame.quit()
         return board.check_if_won(), time
-
-    def calculate_time(self, start_ticks):
-        seconds = (pygame.time.get_ticks() - start_ticks) / 1000
-        hours = seconds // 3600
-        minutes = (seconds % 3600) // 60
-        seconds = seconds % 60
-        return f"{int(hours):02}:{int(minutes):02}:{int(seconds):02}"

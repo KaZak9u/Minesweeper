@@ -18,6 +18,6 @@ CHAR_TO_IMAGE_DICT = {
 }
 
 
-def display_time(screen, time_str, x, y):
+def display_time(screen, time_str, x, y, size):
     for index, char in enumerate(time_str):
-        screen.blit(pygame.transform.scale(CHAR_TO_IMAGE_DICT[char], (32, 40)), (x + index * 40, y))
+        screen.blit(pygame.transform.scale(CHAR_TO_IMAGE_DICT[char], size), (x + index * size[1], y))
