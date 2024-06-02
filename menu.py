@@ -1,19 +1,24 @@
 from buttons import *
 from game import Game
 from time_display import display_time
-from records_saving import update_record
+from records_saving import update_record, load_records
+
+MENU_SIZE = (600, 600)
 
 BACKGROUND_IMAGE = pygame.image.load("Assets/menu_background.png")
-BACKGROUND = pygame.transform.scale(BACKGROUND_IMAGE, (600, 600))
+BACKGROUND = pygame.transform.scale(BACKGROUND_IMAGE, MENU_SIZE)
 
 RULES_IMAGE = pygame.image.load("Assets/rules.png")
-RULES = pygame.transform.scale(RULES_IMAGE, (600, 600))
+RULES = pygame.transform.scale(RULES_IMAGE, MENU_SIZE)
+
+HIGH_SCORES_TABLE_IMAGE = pygame.image.load("Assets/high_scores_table.png")
+HIGH_SCORES_TABLE = pygame.transform.scale(HIGH_SCORES_TABLE_IMAGE, MENU_SIZE)
 
 ENDING_SCREEN_WON_IMAGE = pygame.image.load("Assets/ending_screen_won.png")
-ENDING_SCREEN_WON = pygame.transform.scale(ENDING_SCREEN_WON_IMAGE, (600, 600))
+ENDING_SCREEN_WON = pygame.transform.scale(ENDING_SCREEN_WON_IMAGE, MENU_SIZE)
 
 ENDING_SCREEN_LOST_IMAGE = pygame.image.load("Assets/ending_screen_lost.png")
-ENDING_SCREEN_LOST = pygame.transform.scale(ENDING_SCREEN_LOST_IMAGE, (600, 600))
+ENDING_SCREEN_LOST = pygame.transform.scale(ENDING_SCREEN_LOST_IMAGE, MENU_SIZE)
 
 
 GAME_SETTING = {
@@ -21,14 +26,14 @@ GAME_SETTING = {
     "dimensions": [(750, 750), (700, 700), (1200, 800)],
     "num_of_blocks_x": [10, 14, 24],
     "num_of_blocks_y": [10, 14, 16],
-    "num_of_bombs": [(1, 20, 30), (15, 25, 35), (30, 45, 60)]
+    "num_of_bombs": [(10, 20, 30), (15, 25, 35), (30, 45, 60)]
 }
 
 
 class Menu:
     def __init__(self, flag):
         pygame.init()
-        self.screen = pygame.display.set_mode((600, 600))
+        self.screen = pygame.display.set_mode(MENU_SIZE)
         self.clock = pygame.time.Clock()
         self.flag = flag
 
@@ -137,6 +142,55 @@ class Menu:
             self.clock.tick(60)
         self.run_main_menu()
 
+    def draw_high_scores(self, back_chosen):
+        self.screen.blit(BACKGROUND, (0, 0))
+        self.screen.blit(HIGH_SCORES_TABLE, (0, 20))
+        self.display_records_in_table()
+        if back_chosen:
+            self.screen.blit(BUTTON_BACK_CHOSEN_IMAGE, BUTTON_4_RECT)
+        else:
+            self.screen.blit(BUTTON_BACK_IMAGE, BUTTON_4_RECT)
+        pygame.display.update()
+
+    def run_high_scores(self):
+        pygame.display.set_caption('High scores')
+        self.screen.fill((255, 255, 255))
+
+        back = False
+
+        running = True
+        while running:
+            mouse_pos = pygame.mouse.get_pos()
+            if BUTTON_4_RECT.collidepoint(mouse_pos):
+                self.draw_high_scores(True)
+            else:
+                self.draw_high_scores(False)
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.flag = False
+                    running = False
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        if BUTTON_4_RECT.collidepoint(mouse_pos):
+                            back = True
+                            running = False
+            self.clock.tick(60)
+        if back:
+            self.run_main_menu()
+
+    def display_records_in_table(self):
+        start_x = 172
+        x_to_add = 131
+        start_y = 274
+        y_to_add = 78
+        size = (12, 15)
+        records = load_records()
+        for i, record in enumerate(records.values()):
+            curr_x = start_x + i * x_to_add
+            for j, time in enumerate(record.values()):
+                curr_y = start_y + j * y_to_add
+                display_time(self.screen, time, curr_x, curr_y, size)
+
     def run_main_menu(self):
         pygame.display.set_caption('Minesweeper menu')
         choice = self.menu_loop(MAIN_MENU_BUTTONS)
@@ -144,6 +198,8 @@ class Menu:
             self.run_dimension_choice_menu()
         if choice == 2:
             self.run_rules()
+        if choice == 3:
+            self.run_high_scores()
         if choice == 4:
             self.flag = False
         pygame.quit()
@@ -176,7 +232,7 @@ class Menu:
     def run_ending_screen(self, result, time, dimension_choice, difficulty):
         pygame.init()
         pygame.display.set_caption("Ending screen")
-        self.screen = pygame.display.set_mode((600, 600))
+        self.screen = pygame.display.set_mode(MENU_SIZE)
 
         choice = 0
 
