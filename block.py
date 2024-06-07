@@ -14,7 +14,7 @@ EMPTY_8_IMAGE = pygame.image.load("Assets/empty_8.png")
 BOMBED_BLOCK_IMAGE = pygame.image.load("Assets/bombed_block.png")
 
 
-class Block(object):
+class Block(object):  # Represent a single field on the board
     def __init__(self, bombed, size):
         self.image = UNDISCOVERED_BLOCK_IMAGE
         self.bombed = bombed
@@ -27,7 +27,7 @@ class Block(object):
     def set_neighbouring_bombs_num(self, neighbouring_bombs_num):
         self.neighbouring_bombs_num = neighbouring_bombs_num
 
-    def mark(self):
+    def mark(self):  # Changes the state and image when the block is marked or unmarked as a mine
         if not self.discovered:
             if self.marked:
                 self.image = UNDISCOVERED_BLOCK_IMAGE
@@ -36,7 +36,7 @@ class Block(object):
                 self.image = MARKED_BLOCK_IMAGE
                 self.marked = True
 
-    def discover(self):
+    def discover(self):  # Changes state and image after discovering block
         self.discovered = True
         match self.neighbouring_bombs_num:
             case 0:

@@ -30,13 +30,15 @@ GAME_SETTING = {
 }
 
 
-class Menu:
+class Menu:  # Represents menu outside the main game
     def __init__(self, flag):
         pygame.init()
         self.screen = pygame.display.set_mode(MENU_SIZE)
         self.clock = pygame.time.Clock()
         self.flag = flag
 
+    # Displays on screen images of buttons provided in "buttons" list in positions of BUTTON_1,2,3,4
+    # "buttons" list should contain 8 images, 2 for every button - chosen and default
     def draw_menu(self, buttons, chosen_1, chosen_2, chosen_3, chosen_4):
         self.screen.blit(BACKGROUND, (0, 0))
         if chosen_1:
@@ -57,6 +59,7 @@ class Menu:
             self.screen.blit(buttons[7], BUTTON_4_RECT)
         pygame.display.update()
 
+    # Checks if mouse collides with any of the 4 buttons and draws default and chosen buttons on the screen
     def check_collisions(self, buttons, mouse_pos):
         choices = [False, False, False, False]
         for index, rect in enumerate(BUTTON_RECTS):
@@ -64,6 +67,7 @@ class Menu:
                 choices[index] = True
         self.draw_menu(buttons, choices[0], choices[1], choices[2], choices[3])
 
+    # Loop that is used in main menu, dimensions selection and difficulty selection screens
     def menu_loop(self, buttons):
         choice = 0
         running = True
@@ -83,6 +87,7 @@ class Menu:
             self.clock.tick(60)
         return choice
 
+    # Runs game with settings selected by player
     def start_game(self, dimension_choice, difficulty):
         block_length = GAME_SETTING["block_length"][dimension_choice]
         dimensions = GAME_SETTING["dimensions"][dimension_choice]
@@ -93,6 +98,7 @@ class Menu:
         result, time = game.run()
         self.run_ending_screen(result, time, dimension_choice, difficulty)
 
+    # Runs difficulty choice screen
     def run_difficulty_choice_menu(self, dimension_choice):
         pygame.display.set_caption('Select difficulty')
         choice = self.menu_loop(DIFFICULTY_CHOICE_BUTTONS)
@@ -106,6 +112,7 @@ class Menu:
         if choice == 3:
             self.start_game(dimension_choice, 2)
 
+    # Runs dimension choice screen
     def run_dimension_choice_menu(self):
         pygame.display.set_caption('Select dimension')
         choice = self.menu_loop(DIMENSION_CHOICE_BUTTONS)
@@ -118,6 +125,7 @@ class Menu:
         if choice == 4:
             self.run_main_menu()
 
+    # Runs rules screen
     def run_rules(self):
         pygame.display.set_caption('Rules')
         self.screen.fill((255, 255, 255))
@@ -142,6 +150,7 @@ class Menu:
             self.clock.tick(60)
         self.run_main_menu()
 
+    # Displays all the elements on high scores screen
     def draw_high_scores(self, back_chosen):
         self.screen.blit(BACKGROUND, (0, 0))
         self.screen.blit(HIGH_SCORES_TABLE, (0, 20))
@@ -152,6 +161,7 @@ class Menu:
             self.screen.blit(BUTTON_BACK_IMAGE, BUTTON_4_RECT)
         pygame.display.update()
 
+    # Runs high scores window
     def run_high_scores(self):
         pygame.display.set_caption('High scores')
         self.screen.fill((255, 255, 255))
@@ -178,6 +188,7 @@ class Menu:
         if back:
             self.run_main_menu()
 
+    # Displays proper time lengths in table in high scores screen
     def display_records_in_table(self):
         start_x = 172
         x_to_add = 131
@@ -204,6 +215,7 @@ class Menu:
             self.flag = False
         pygame.quit()
 
+    # Displays ending screen buttons on the screen
     def draw_ending_screen_buttons(self, main_menu_chosen, try_again_chosen):
         if main_menu_chosen:
             self.screen.blit(BUTTON_MAIN_MENU_CHOSEN, BUTTON_3_RECT)
@@ -215,6 +227,7 @@ class Menu:
             self.screen.blit(BUTTON_TRY_AGAIN, BUTTON_2_RECT)
         pygame.display.update()
 
+    # Checks if the mouse collides with any button and displays ending screen window on the screen
     def check_ending_screen_buttons(self, mouse_pos, result, time):
         if result:
             self.screen.blit(ENDING_SCREEN_WON, (0, 0))
@@ -229,6 +242,7 @@ class Menu:
             main_menu_chosen = True
         self.draw_ending_screen_buttons(main_menu_chosen, try_again_chosen)
 
+    # Runs the ending screen after the player finishes game
     def run_ending_screen(self, result, time, dimension_choice, difficulty):
         pygame.init()
         pygame.display.set_caption("Ending screen")

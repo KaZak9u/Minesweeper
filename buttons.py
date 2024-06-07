@@ -1,5 +1,7 @@
 import pygame
 
+# Script used to load every button used in the menu
+
 """ BUTTON LOCATIONS """
 
 BUTTON_1_LOCATION = (150, 200)

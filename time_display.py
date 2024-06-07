@@ -18,6 +18,7 @@ CHAR_TO_IMAGE_DICT = {
 }
 
 
+# Function for displaying timestamp as pixel-art styled image on the screen
 def display_time(screen, time_str, x, y, size):
     for index, char in enumerate(time_str):
         screen.blit(pygame.transform.scale(CHAR_TO_IMAGE_DICT[char], size), (x + index * size[1], y))

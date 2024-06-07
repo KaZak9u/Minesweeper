@@ -3,13 +3,14 @@ import random
 from block import Block
 
 
-class Board(object):
+class Board(object):  # Represents the board containing fields
     def __init__(self, num_rows, num_cols, block_length):
         self.blocks_matrix = []
         self.num_rows = num_rows
         self.num_cols = num_cols
         self.block_length = block_length
 
+    # Generates a list containing indexes of where bombs should be placed on the board
     def generate_random_bombed_fields_list(self, bombs_num):
         fields_list = []
         for i in range(bombs_num):
@@ -21,6 +22,7 @@ class Board(object):
                     flag = True
         return fields_list
 
+    # Fills the board with blocks
     def fill_board_with_blocks(self, bombed_fields_list):
         for i in range(self.num_rows):
             self.blocks_matrix.append([])
@@ -30,6 +32,7 @@ class Board(object):
                 else:
                     self.blocks_matrix[i].append(Block(False, self.block_length))
 
+    # Counts how many neighbouring blocks are bombed for a given indexes of matrix
     def count_neighbours(self, i, j):
         num = 0
         if i > 0:
@@ -58,17 +61,20 @@ class Board(object):
                 num += 1
         return num
 
+    # Sets number of neighbouring bombs for every block on the board
     def set_num_of_neighbours_on_board(self):
         for i in range(len(self.blocks_matrix)):
             for j in range(len(self.blocks_matrix[i])):
                 if not self.blocks_matrix[i][j].bombed:
                     self.blocks_matrix[i][j].set_neighbouring_bombs_num(self.count_neighbours(i, j))
 
+    # Preprocesses the board before game
     def generate_board(self, bombs_num):
         bombed_fields_list = self.generate_random_bombed_fields_list(bombs_num)
         self.fill_board_with_blocks(bombed_fields_list)
         self.set_num_of_neighbours_on_board()
 
+    # Checks if the player correctly identified every bomb on the board
     def check_if_won(self):
         for line in self.blocks_matrix:
             for block in line:
@@ -76,6 +82,8 @@ class Board(object):
                     return False
         return True
 
+    # Recursive function that discovers all the fields without neighbouring bombs that are neighbouring to field
+    # discovered by player
     def discover_fields(self, i, j):
         self.blocks_matrix[i][j].discover()
         if self.blocks_matrix[i][j].neighbouring_bombs_num == 0:
@@ -92,6 +100,7 @@ class Board(object):
                 if not (self.blocks_matrix[i][j + 1].bombed or self.blocks_matrix[i][j + 1].discovered):
                     self.discover_fields(i, j + 1)
 
+    # Displays current state of board on the screen
     def draw_window(self, screen):
         for i in range(len(self.blocks_matrix)):
             for j in range(len(self.blocks_matrix[i])):
@@ -104,6 +113,7 @@ class Board(object):
     def mark_field(self, i, j):
         self.blocks_matrix[i][j].mark()
 
+    # Counts how man blocks are marked by player
     def count_marked(self):
         num = 0
         for i in self.blocks_matrix:

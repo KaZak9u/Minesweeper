@@ -3,7 +3,7 @@ from board import Board
 from records_saving import calculate_time
 
 
-class Game:
+class Game:  # Represents current state of game
     def __init__(self, block_length, dimensions, num_rows, num_cols, num_bombs):
         self.clock = pygame.time.Clock()
         self.block_length = block_length
@@ -19,7 +19,7 @@ class Game:
         if dimensions[0] == 1200:
             self.num_of_spaces = 145
 
-    def run(self):
+    def run(self):  # Runs whole game on the screen using backend logic from Board and Block classes
         time = ""
         start_ticks = pygame.time.get_ticks()
         pygame.display.set_caption(f'Bombs: {str(0)} / {str(self.num_bombs)}{" " * self.num_of_spaces}00:00:00')
