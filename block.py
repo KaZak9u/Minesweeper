@@ -1,17 +1,17 @@
 import pygame
 
-UNDISCOVERED_BLOCK_IMAGE = pygame.image.load("Assets/undiscovered_block.png")
-EMPTY_BLOCK_IMAGE = pygame.image.load("Assets/empty_block.png")
-MARKED_BLOCK_IMAGE = pygame.image.load("Assets/marked_box.png")
-EMPTY_1_IMAGE = pygame.image.load("Assets/empty_1.png")
-EMPTY_2_IMAGE = pygame.image.load("Assets/empty_2.png")
-EMPTY_3_IMAGE = pygame.image.load("Assets/empty_3.png")
-EMPTY_4_IMAGE = pygame.image.load("Assets/empty_4.png")
-EMPTY_5_IMAGE = pygame.image.load("Assets/empty_5.png")
-EMPTY_6_IMAGE = pygame.image.load("Assets/empty_6.png")
-EMPTY_7_IMAGE = pygame.image.load("Assets/empty_7.png")
-EMPTY_8_IMAGE = pygame.image.load("Assets/empty_8.png")
-BOMBED_BLOCK_IMAGE = pygame.image.load("Assets/bombed_block.png")
+UNDISCOVERED_BLOCK_IMAGE = pygame.image.load("assets/undiscovered_block.png")
+EMPTY_BLOCK_IMAGE = pygame.image.load("assets/empty_block.png")
+MARKED_BLOCK_IMAGE = pygame.image.load("assets/marked_box.png")
+EMPTY_1_IMAGE = pygame.image.load("assets/empty_1.png")
+EMPTY_2_IMAGE = pygame.image.load("assets/empty_2.png")
+EMPTY_3_IMAGE = pygame.image.load("assets/empty_3.png")
+EMPTY_4_IMAGE = pygame.image.load("assets/empty_4.png")
+EMPTY_5_IMAGE = pygame.image.load("assets/empty_5.png")
+EMPTY_6_IMAGE = pygame.image.load("assets/empty_6.png")
+EMPTY_7_IMAGE = pygame.image.load("assets/empty_7.png")
+EMPTY_8_IMAGE = pygame.image.load("assets/empty_8.png")
+BOMBED_BLOCK_IMAGE = pygame.image.load("assets/bombed_block.png")
 
 
 class Block(object):  # Represent a single field on the board

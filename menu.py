@@ -5,19 +5,19 @@ from records_saving import update_record, load_records
 
 MENU_SIZE = (600, 600)
 
-BACKGROUND_IMAGE = pygame.image.load("Assets/menu_background.png")
+BACKGROUND_IMAGE = pygame.image.load("assets/menu_background.png")
 BACKGROUND = pygame.transform.scale(BACKGROUND_IMAGE, MENU_SIZE)
 
-RULES_IMAGE = pygame.image.load("Assets/rules.png")
+RULES_IMAGE = pygame.image.load("assets/rules.png")
 RULES = pygame.transform.scale(RULES_IMAGE, MENU_SIZE)
 
-HIGH_SCORES_TABLE_IMAGE = pygame.image.load("Assets/high_scores_table.png")
+HIGH_SCORES_TABLE_IMAGE = pygame.image.load("assets/high_scores_table.png")
 HIGH_SCORES_TABLE = pygame.transform.scale(HIGH_SCORES_TABLE_IMAGE, MENU_SIZE)
 
-ENDING_SCREEN_WON_IMAGE = pygame.image.load("Assets/ending_screen_won.png")
+ENDING_SCREEN_WON_IMAGE = pygame.image.load("assets/ending_screen_won.png")
 ENDING_SCREEN_WON = pygame.transform.scale(ENDING_SCREEN_WON_IMAGE, MENU_SIZE)
 
-ENDING_SCREEN_LOST_IMAGE = pygame.image.load("Assets/ending_screen_lost.png")
+ENDING_SCREEN_LOST_IMAGE = pygame.image.load("assets/ending_screen_lost.png")
 ENDING_SCREEN_LOST = pygame.transform.scale(ENDING_SCREEN_LOST_IMAGE, MENU_SIZE)
 
 
